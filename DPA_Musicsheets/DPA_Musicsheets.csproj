@@ -105,8 +105,22 @@
     </ApplicationDefinition>
     <Compile Include="Managers\MidiToLilyHelper.cs" />
     <Compile Include="Managers\MusicLoader.cs" />
+    <Compile Include="Models\Alternative.cs" />
+    <Compile Include="Models\Bar.cs" />
+    <Compile Include="Models\Clef.cs" />
+    <Compile Include="Models\Endsection.cs" />
     <Compile Include="Models\LilypondToken.cs" />
     <Compile Include="Models\LilypondTokenKind.cs" />
+    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\NoteFactory.cs" />
+    <Compile Include="Models\Repeat.cs" />
+    <Compile Include="Models\Rest.cs" />
+    <Compile Include="Models\Section.cs" />
+    <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\StaffBuilder.cs" />
+    <Compile Include="Models\Startsection.cs" />
+    <Compile Include="Models\Tempo.cs" />
+    <Compile Include="Models\Time.cs" />
     <Compile Include="ViewModels\MidiPlayerViewModel.cs" />
     <Compile Include="ViewModels\StaffsViewModel.cs" />
     <Compile Include="Views\MidiPlayerCtrl.xaml.cs">

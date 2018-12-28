@@ -212,7 +212,7 @@ namespace DPA_Musicsheets.Managers
         {
             List<MusicalSymbol> symbols = new List<MusicalSymbol>();
 
-            Clef currentClef = null;
+            PSAMControlLibrary.Clef currentClef = null;
             int previousOctave = 4;
             char previousNote = 'c';
             bool inRepeat = false;
@@ -270,7 +270,7 @@ namespace DPA_Musicsheets.Managers
                         if (currentToken.Value.StartsWith("~"))
                         {
                             tie = NoteTieType.Stop;
-                            var lastNote = symbols.Last(s => s is Note) as Note;
+                            var lastNote = symbols.Last(s => s is PSAMControlLibrary.Note) as PSAMControlLibrary.Note;
                             if (lastNote != null) lastNote.TieType = NoteTieType.Start;
                             currentToken.Value = currentToken.Value.Substring(1);
                         }
@@ -306,14 +306,14 @@ namespace DPA_Musicsheets.Managers
 
                         previousNote = currentToken.Value[0];
 
-                        var note = new Note(currentToken.Value[0].ToString().ToUpper(), alter, previousOctave, (MusicalSymbolDuration)noteLength, NoteStemDirection.Up, tie, new List<NoteBeamType>() { NoteBeamType.Single });
+                        var note = new PSAMControlLibrary.Note(currentToken.Value[0].ToString().ToUpper(), alter, previousOctave, (MusicalSymbolDuration)noteLength, NoteStemDirection.Up, tie, new List<NoteBeamType>() { NoteBeamType.Single });
                         note.NumberOfDots += currentToken.Value.Count(c => c.Equals('.'));
                         
                         symbols.Add(note);
                         break;
                     case LilypondTokenKind.Rest:
                         var restLength = Int32.Parse(currentToken.Value[1].ToString());
-                        symbols.Add(new Rest((MusicalSymbolDuration)restLength));
+                        symbols.Add(new PSAMControlLibrary.Rest((MusicalSymbolDuration)restLength));
                         break;
                     case LilypondTokenKind.Bar:
                         symbols.Add(new Barline() { AlternateRepeatGroup = alternativeRepeatNumber });
@@ -321,9 +321,9 @@ namespace DPA_Musicsheets.Managers
                     case LilypondTokenKind.Clef:
                         currentToken = currentToken.NextToken;
                         if (currentToken.Value == "treble")
-                            currentClef = new Clef(ClefType.GClef, 2);
+                            currentClef = new PSAMControlLibrary.Clef(ClefType.GClef, 2);
                         else if (currentToken.Value == "bass")
-                            currentClef = new Clef(ClefType.FClef, 4);
+                            currentClef = new PSAMControlLibrary.Clef(ClefType.FClef, 4);
                         else
                             throw new NotSupportedException($"Clef {currentToken.Value} is not supported.");
 
@@ -434,7 +434,7 @@ namespace DPA_Musicsheets.Managers
                 switch (musicalSymbol.Type)
                 {
                     case MusicalSymbolType.Note:
-                        Note note = musicalSymbol as Note;
+                        PSAMControlLibrary.Note note = musicalSymbol as PSAMControlLibrary.Note;
 
                         // Calculate duration
                         double absoluteLength = 1.0 / (double)note.Duration;
